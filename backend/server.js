@@ -1,52 +1,55 @@
-require('dotenv').config()
+require('dotenv').config();
 
 const cors = require('cors');
+const express = require('express');
+const mongoose = require('mongoose');
+const Drawing = require('./models/drawing');
 
-const express = require('express')
-const mongoose = require('mongoose')
-const Drawing = require('./models/drawing')
-
-const app = express()
+const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-
-// connect to db
-mongoose.connect(process.env.MONGO_URI)
+// Connect to the database
+mongoose.connect(process.env.MONGO_URI, {
+  dbName: 'DigitRecognizer',
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
   .then(() => {
-    console.log('connected to database')
-    // listen to port
+    console.log('Connected to the database');
+    // Listen to port
     app.listen(process.env.PORT, () => {
-      console.log('listening for requests on port', process.env.PORT)
-    })
+      console.log('Listening for requests on port', process.env.PORT);
+    });
   })
   .catch((err) => {
-    console.log(err)
-  }) 
+    console.error(err);
+  });
 
+app.get('/', async (req, res) => {
+  try {
+    const drawings = await Drawing.find({}).sort({ createdAt: -1 });
+    res.status(200).json(drawings);
+  } catch (error) {
+    console.error('Error retrieving drawings:', error);
+    res.status(500).json({ error: 'Error retrieving drawings' });
+  }
+});
 
-  app.get('/', async (req, res) => {
-    const drawings = await Drawing.find({}).sort({createdAt: -1})
+app.post('/save', async (req, res) => {
+  try {
+    const { pixels } = req.body;
 
-    res.status(200).json(drawings)
-   })
+    // Create a new instance of Drawing with the pixel data
+    const newDrawing = await Drawing.create({ pixels });
 
-  app.post('/save', async (req, res) => {
-    try {
-        const { drawing } = req.body;
-    
-        // Créer une nouvelle instance de Drawing avec les données du dessin
-        const newDrawing = await Drawing.create({ drawing })
-    
-        // Sauvegarder le dessin dans la base de données
-        await newDrawing.save();
-    
-        res.json({ message: 'Dessin enregistré avec succès' });
+    // Save the drawing in the database
+    await newDrawing.save();
 
-      } catch (error) {
-
-        console.error('Erreur lors de l\'enregistrement du dessin :', error);
-        res.status(500).json({ error: 'Erreur lors de l\'enregistrement du dessin' });
-      }
-  })
+    res.json({ message: 'Drawing saved successfully' });
+  } catch (error) {
+    console.error('Error saving the drawing:', error);
+    res.status(500).json({ error: 'Error saving the drawing' });
+  }
+});
