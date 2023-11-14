@@ -58,30 +58,34 @@ const Home = () => {
     contextRef.current.fillRect(0, 0, canvas.width, canvas.height);
   };
 
-  const saveDrawing = () => {
+  const saveDrawing = async () => {
     const canvas = canvasRef.current;
     const drawingData = canvas.toDataURL(); // Convertit le dessin en une URL de données
   
     // méthode POST pour envoyer drawingData au backend
-    fetch('http://localhost:4000/save-drawing', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ drawingData }),
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Dessin enregistré avec succès :', data);
-        // Gérer la réponse du backend si nécessaire
-      })
-      .catch(error => {
-        console.error('Erreur lors de l enregistrement du dessin :', error);
-        // Gérer les erreurs si nécessaire
+    try {
+      const response = await fetch('http://localhost:4000/save', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ drawing: drawingData }),
       });
-  };
   
-    
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log('Dessin enregistré avec succès :', data);
+
+    } catch (error) {
+      console.log(drawingData)
+      console.error('Erreur lors de l enregistrement du dessin :', error);
+    }
+  };
+
+
 
   return (
     <div className="home">

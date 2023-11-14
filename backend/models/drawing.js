@@ -3,10 +3,14 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const drawingSchema = new Schema({
-    data: {
-      type: String,
+    drawing: {
+      type : String,
       required: true,
     },
+    prediction: {
+      type: Number,
+      required: false
+    }
 })
 
-module.exports = mongoose.model('drawing', drawingSchema)
+module.exports = mongoose.model('Drawings', drawingSchema)
