@@ -1,50 +1,60 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+/* App.css */
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
 }
 
 .home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
   text-align: center;
 }
 
+h2 {
+  color: #333;
+}
+
 .marker {
-    position:absolute;
-    left: 250px;
-    top: 150px; /* Necessary for correct mouse co-ords in Firefox */ 
+  position: relative;
+  margin-top: 20px;
+}
+
+canvas {
+  border: 1px solid #333;
+  background-color: #000;
+  cursor: crosshair;
 }
 
 .button {
-  margin-bottom: 30px;
+  margin-top: 20px;
 }
 
-.button button {
-  padding: 10px 20px;
-  margin-bottom: 10px; /* Ajout d'une marge inférieure entre les boutons */
+button {
+  margin: 0 10px;
+  padding: 10px;
   font-size: 16px;
-  color: white;
-  background-color: #3498db; /* Couleur de fond du bouton */
-  border: none;
-  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.button button:hover {
-  background-color: #2980b9; /* Couleur de fond du bouton au survol */
 }
 
 .prediction_result {
-  position: absolute;
-  margin-left: 750px; /* Ajoute une marge à gauche pour l'espace visuel */
-  top: 150px; /* Necessary for correct mouse co-ords in Firefox */ 
-  padding: 50px; /* Ajoute une certaine marge interne pour l'apparence */
+  margin-top: 20px;
+}
+
+#prediction_heading {
+  color: #333;
+}
+
+#result {
+  font-size: 24px;
+  color: #009688;
+}
+
+#confidence {
+  color: #666;
 }

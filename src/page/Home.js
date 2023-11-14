@@ -62,7 +62,7 @@ const Home = () => {
     const canvas = canvasRef.current;
     const drawingData = canvas.toDataURL(); // Convertit le dessin en une URL de données
   
-    // méthode POST pour envoyer drawingData au backend
+    // méthode POST pour envoyer l'image en BDD
     try {
       const response = await fetch('http://localhost:4000/save', {
         method: 'POST',
