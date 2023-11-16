@@ -1,6 +1,6 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema
+const Schema = mongoose.Schema;
 
 const drawingSchema = new Schema({
   pixels: {
@@ -10,7 +10,7 @@ const drawingSchema = new Schema({
   prediction: {
     type: Number,
     required: false,
-  }
-})
+  },
+});
 
-module.exports = mongoose.model('Drawings', drawingSchema)
+module.exports = mongoose.model('Drawings', drawingSchema);

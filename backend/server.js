@@ -50,20 +50,18 @@ mongoose.connect(process.env.MONGO_URI, {
       }
     });
   });
-
-app.post('/save', async (req, res) => {
-  try {
-    const { pixels } = req.body;
-
-    // Create a new instance of Drawing with the pixel data
-    const newDrawing = await Drawing.create({ pixels });
-
-    // Save the drawing in the database
-    await newDrawing.save();
-
-    res.json({ message: 'Drawing saved successfully' });
-  } catch (error) {
-    console.error('Error saving the drawing:', error);
-    res.status(500).json({ error: 'Error saving the drawing' });
-  }
-});
+  app.post('/save', async (req, res) => {
+    try {
+      const { pixels, prediction } = req.body;
+  
+      const newDrawing = await Drawing.create({ pixels, prediction });
+  
+      await newDrawing.save();
+  
+      res.json({ message: 'Drawing saved successfully' });
+    } catch (error) {
+      console.error('Error saving the drawing:', error);
+      res.status(500).json({ error: 'Error saving the drawing' });
+    }
+  });
+  
