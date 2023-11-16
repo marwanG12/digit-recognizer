@@ -6,7 +6,6 @@ const Canvas = ({ updateCanvasRef, setPrediction }) => {
     const [prediction, setLocalPrediction] = useState(null); // Utiliser un seul état pour la prédiction
     const canvasRef = useRef(null);
     const contextRef = useRef(null);
-    const [lineWidth, setLineWidth] = useState(15);
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -19,11 +18,9 @@ const Canvas = ({ updateCanvasRef, setPrediction }) => {
 
         context.lineCap = 'round';
         context.strokeStyle = 'white';
-        context.lineWidth = 5;
+        context.lineWidth = 15;
 
         contextRef.current = context;
-
-        contextRef.current.lineWidth = lineWidth; // 
 
         // Met à jour la référence du canvas dans le composant parent (Home)
         updateCanvasRef(canvasRef.current);
