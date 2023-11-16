@@ -3,11 +3,11 @@ import * as tf from '@tensorflow/tfjs';
 
 const Canvas = ({ updateCanvasRef, setPrediction }) => {
     const [isDrawing, setIsDrawing] = useState(false);
-    const [prediction, setLocalPrediction] = useState(null); // Utiliser un seul état pour la prédiction
     const canvasRef = useRef(null);
     const contextRef = useRef(null);
 
     useEffect(() => {
+        // Initialisation du canvas lors du chargement du composant
         const canvas = canvasRef.current;
         canvas.width = 250;
         canvas.height = 250;
@@ -27,6 +27,7 @@ const Canvas = ({ updateCanvasRef, setPrediction }) => {
     }, [updateCanvasRef]);
 
     const startDrawing = ({ nativeEvent }) => {
+        // Démarrer le dessin lorsqu'on appuie sur le bouton de la souris
         if (!isDrawing) {
             const { offsetX, offsetY } = nativeEvent;
             contextRef.current.beginPath();
@@ -36,6 +37,7 @@ const Canvas = ({ updateCanvasRef, setPrediction }) => {
     };
 
     const draw = ({ nativeEvent }) => {
+        // Dessiner lorsque la souris se déplace
         if (!isDrawing) return;
 
         const { offsetX, offsetY } = nativeEvent;
@@ -44,6 +46,7 @@ const Canvas = ({ updateCanvasRef, setPrediction }) => {
     };
 
     const endDrawing = () => {
+        // Arrêter le dessin lorsque le bouton de la souris est relâché
         if (isDrawing) {
             contextRef.current.closePath();
             setIsDrawing(false);
@@ -53,8 +56,6 @@ const Canvas = ({ updateCanvasRef, setPrediction }) => {
     const displayLabel = (data) => {
         let max = data[0];
         let maxIndex = 0;
-
-        console.log(data);
 
         for (let i = 1; i < data.length; i++) {
             if (data[i] > max) {
@@ -69,14 +70,15 @@ const Canvas = ({ updateCanvasRef, setPrediction }) => {
             confidence: (max * 100).toFixed(2),
         });
 
-        // Mettre à jour la prédiction dans l'état local du composant Canvas
-        setLocalPrediction({
+        // Retourner la prédiction mise à jour
+        return {
             index: maxIndex,
             confidence: (max * 100).toFixed(2),
-        });
+        };
     }
 
     const clearCanvas = () => {
+        // Effacer le contenu du canvas
         const canvas = canvasRef.current;
         const context = canvas.getContext('2d');
         context.fillStyle = 'black';
@@ -86,21 +88,30 @@ const Canvas = ({ updateCanvasRef, setPrediction }) => {
     };
 
     const ImageTransmission = (image) => {
+        // Prétraitement de l'image avant la prédiction
         let tensor = tf.browser.fromPixels(image).resizeNearestNeighbor([28, 28]).mean(2).expandDims(2).expandDims().toFloat();
         return tensor.div(255.0);
     }
 
     const Prediction = async (image) => {
+        // Effectuer la prédiction avec le modèle TensorFlow
         let tensor = ImageTransmission(image);
 
         try {
+            // Charger le modèle
             let model = await tf.loadLayersModel('http://localhost:4000/predict/model.json');
+
+            // Obtenir les prédictions
             const predictions = await model.predict(tensor).data();
 
             // Libérer les ressources du modèle après la prédiction
             model.dispose();
 
-            displayLabel(predictions);
+            // Afficher la prédiction dans le canvas
+            const updatedPrediction = displayLabel(predictions);
+
+            // Retourner la prédiction mise à jour
+            return updatedPrediction;
         } catch (error) {
             console.error('Erreur lors de la prédiction :', error);
         }
@@ -129,6 +140,9 @@ const Canvas = ({ updateCanvasRef, setPrediction }) => {
                 pixelValues.push(pixelValue);
             }
 
+            // Attendre la résolution de la fonction Prediction avant de continuer
+            const updatedPrediction = await Prediction(canvas);
+
             try {
                 const response = await fetch('http://localhost:4000/save', {
                     method: 'POST',
@@ -137,11 +151,11 @@ const Canvas = ({ updateCanvasRef, setPrediction }) => {
                     },
                     body: JSON.stringify({
                         pixels: pixelValues,
-                        // prediction: prediction.index, // Utiliser la prédiction locale
-                        prediction: prediction ? prediction.index : null,
+                        prediction: updatedPrediction.index,
                     }),
                 });
 
+                console.log(updatedPrediction)
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
@@ -151,8 +165,6 @@ const Canvas = ({ updateCanvasRef, setPrediction }) => {
             } catch (error) {
                 console.error('Erreur lors de l enregistrement du dessin :', error);
             }
-
-            Prediction(canvas);
         };
     }
 
