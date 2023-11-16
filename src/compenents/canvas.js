@@ -94,7 +94,7 @@ const Canvas = ({ updateCanvasRef, setPrediction }) => {
         let tensor = ImageTransmission(image);
 
         try {
-            let model = await tf.loadLayersModel('http://localhost:4000/model/model.json');
+            let model = await tf.loadLayersModel('http://localhost:4000/predict/model.json');
             const predictions = await model.predict(tensor).data();
 
             // Libérer les ressources du modèle après la prédiction

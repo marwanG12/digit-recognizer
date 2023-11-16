@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(cors());
 
 // Ajoutez ceci après l'initialisation de votre app Express
-app.use('/model', express.static(path.join(__dirname, '..', 'src', 'model')));
+app.use('/predict', express.static(path.join(__dirname, '..', 'src', 'model')));
 
 
 // Connect to the database
@@ -33,8 +33,9 @@ mongoose.connect(process.env.MONGO_URI, {
   .catch((err) => {
     console.error(err);
   });
+  
 
-  app.get('/model', async (req, res) => {
+  app.get('/predict', async (req, res) => {
     console.log("route /model");
     const filePath = path.join(__dirname, '..', 'src', 'model' ,'model.json');
     console.log(filePath)
@@ -50,6 +51,8 @@ mongoose.connect(process.env.MONGO_URI, {
       }
     });
   });
+
+
   app.post('/save', async (req, res) => {
     try {
       const { pixels, prediction } = req.body;
