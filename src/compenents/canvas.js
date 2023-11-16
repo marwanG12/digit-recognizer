@@ -8,6 +8,8 @@ const Canvas = () => {
     const contextRef = useRef(null);
     const [isDrawing, setIsDrawing] = useState(false);
 
+    const tf = require('@tensorflow/tfjs');
+
     useEffect(() => {
         const canvas = canvasRef.current;
         canvas.width = 250; // Ajustez la largeur du canvas selon vos besoins
@@ -61,6 +63,31 @@ const Canvas = () => {
         contextRef.current.fillRect(0, 0, canvas.width, canvas.height);
     };
 
+    const ImageTransmission = (image) => {
+
+        let tensor = tf.browser.fromPixels(image).resizeNearestNeighbor([28, 28]).mean(2).expandDims(2).expandDims().toFloat();
+
+        console.log(tensor.shape)
+        return tensor.div(255.0)
+    }
+
+    const Prediction = async (image) => {
+
+        let tensor = ImageTransmission(image)
+        console.log(tensor)
+        
+        console.log("model loading...")
+        let model = await tf.loadLayersModel('http://localhost:4000/model/model.json');
+        console.log("model loaded..")
+
+        // On envoie l'image au model pour prédiction
+        const predictions = await model.predict(tensor).data()
+        console.log(predictions)
+
+        const results = Array.from(predictions)
+        console.log(results)
+    }
+
     const saveDrawing = async () => {
         const canvas = canvasRef.current;
         const drawingData = canvas.toDataURL(); // Convertit le dessin en une URL de données
@@ -110,6 +137,8 @@ const Canvas = () => {
             } catch (error) {
                 console.error('Erreur lors de l enregistrement du dessin :', error);
             }
+
+            Prediction(canvas)
         };
     }
     return (
