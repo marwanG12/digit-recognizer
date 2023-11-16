@@ -6,6 +6,7 @@ const Canvas = ({ updateCanvasRef, setPrediction }) => {
     const [prediction, setLocalPrediction] = useState(null); // Utiliser un seul état pour la prédiction
     const canvasRef = useRef(null);
     const contextRef = useRef(null);
+    const [lineWidth, setLineWidth] = useState(15);
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -21,6 +22,8 @@ const Canvas = ({ updateCanvasRef, setPrediction }) => {
         context.lineWidth = 5;
 
         contextRef.current = context;
+
+        contextRef.current.lineWidth = lineWidth; // 
 
         // Met à jour la référence du canvas dans le composant parent (Home)
         updateCanvasRef(canvasRef.current);
@@ -137,7 +140,8 @@ const Canvas = ({ updateCanvasRef, setPrediction }) => {
                     },
                     body: JSON.stringify({
                         pixels: pixelValues,
-                        prediction: prediction.index, // Utiliser la prédiction locale
+                        // prediction: prediction.index, // Utiliser la prédiction locale
+                        prediction: prediction ? prediction.index : null,
                     }),
                 });
 
