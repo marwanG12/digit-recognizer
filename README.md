@@ -9,7 +9,7 @@ Installation dans la racine du projet
 npm install
 pip install numpy pandas matplotlib seaborn tensorflow pymongo scikit-learn (Pour exécuter le Notebook)
 ```
-Pour le notebook, il faut aussi importer les csv Train et Test dans les collections train et test pour pouvoir génerer votre modèle ! 
+Pour le notebook, il faut aussi importer les csv [Train et Test](https://www.kaggle.com/competitions/digit-recognizer/overview) dans les collections train et test pour pouvoir génerer votre modèle ! 
 
 ## Variables d'environnement
 
