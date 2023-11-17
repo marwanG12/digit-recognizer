@@ -33,6 +33,7 @@ node server.js (Dans le dossier backend)
 - [@AdrienManfredi](https://github.com/AdrienManfredi)
 - [@RestumpY](https://github.com/RestumpY)
 - [@Ziyed1](https://github.com/Ziyed1)
+- [@Youssef-Git](https://github.com/Youssef-Git)
 
 ## Trello
 https://trello.com/b/6P4HJi16/digit-recognizer
