@@ -27,8 +27,8 @@ npm start (Dans la racine)
 node server.js (Dans le dossier backend)
 ```
 
-## Lien
-Digital Recognizer ](http://ipssi.digit-recognizer.com:3000)
+## Déploiement
+[Digital Recognizer](http://ipssi.digit-recognizer.com:3000)
 
 ## Contributeurs
 
