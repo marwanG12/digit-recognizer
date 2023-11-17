@@ -10,7 +10,7 @@ pip install numpy pandas matplotlib seaborn tensorflow pymongo scikit-learn
 ```
 
 
-## Environment Variables
+## Variables d'environnement
 
 Pour démarrer le projet vous devez modifier le .env
 
@@ -28,7 +28,7 @@ node server.js (Dans le dossier backend)
 
 
 
-## Authors
+## Contributeurs
 
 - [@AdrienManfredi](https://github.com/AdrienManfredi)
 - [@RestumpY](https://github.com/RestumpY)
