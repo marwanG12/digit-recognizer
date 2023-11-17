@@ -1,4 +1,5 @@
 # DigitRecognizer
+L'objectif principal de ce projet est de créer un modèle d'apprentissage capable de reconnaître les chiffres de 0 à 9.
 
 ## Installation
 
