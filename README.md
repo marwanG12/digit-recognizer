@@ -1,4 +1,5 @@
 # DigitRecognizer
+L'objectif principal de ce projet est de créer un modèle d'apprentissage capable de reconnaître les chiffres de 0 à 9.
 
 ## Installation
 
@@ -33,6 +34,7 @@ node server.js (Dans le dossier backend)
 - [@AdrienManfredi](https://github.com/AdrienManfredi)
 - [@RestumpY](https://github.com/RestumpY)
 - [@Ziyed1](https://github.com/Ziyed1)
+- [@Youssef-Git](https://github.com/Youssef-Git)
 
 ## Trello
 https://trello.com/b/6P4HJi16/digit-recognizer
