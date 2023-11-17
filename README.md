@@ -40,4 +40,4 @@ node server.js (Dans le dossier backend)
 https://trello.com/b/6P4HJi16/digit-recognizer
 
 ## Powerpoint
-[Télécharger le fichier PowerPoint](lien_vers_votre_fichier.pptx)
+[Télécharger le fichier PowerPoint]([https://github.com/Ziyed1/IA_IPSSI/blob/main/Projet-IA-Reconnaissance-de-chiffres.pptx])
