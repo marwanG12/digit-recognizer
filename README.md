@@ -27,7 +27,8 @@ npm start (Dans la racine)
 node server.js (Dans le dossier backend)
 ```
 
-
+## Lien
+Digital Recognizer : http://35.181.160.40:3000
 
 ## Contributeurs
 
