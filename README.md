@@ -7,7 +7,7 @@ Installation dans la racine du projet
 
 ```bash
 npm install
-pip install numpy pandas matplotlib seaborn tensorflow pymongo scikit-learn 
+pip install numpy pandas matplotlib seaborn tensorflow pymongo scikit-learn (Pour exécuter le Notebook)
 ```
 
 
