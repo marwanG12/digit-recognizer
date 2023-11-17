@@ -37,4 +37,4 @@ node server.js (Dans le dossier backend)
 ## Trello
 https://trello.com/b/6P4HJi16/digit-recognizer
 
-Support de présentation : 
+## Powerpoint
