@@ -99,7 +99,7 @@ const Canvas = ({ updateCanvasRef, setPrediction }) => {
 
         try {
             // Charger le modèle
-            let model = await tf.loadLayersModel('http://localhost:4000/predict/model.json');
+            let model = await tf.loadLayersModel('http://localhost:5000/predict/model.json');
 
             // Obtenir les prédictions
             const predictions = await model.predict(tensor).data();
@@ -144,7 +144,7 @@ const Canvas = ({ updateCanvasRef, setPrediction }) => {
             const updatedPrediction = await Prediction(canvas);
 
             try {
-                const response = await fetch('http://localhost:4000/save', {
+                const response = await fetch('http://localhost:5000/save', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

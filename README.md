@@ -30,15 +30,8 @@ node server.js (Dans le dossier backend)
 ## Déploiement
 [Digital Recognizer](http://ipssi.digit-recognizer.com:3000)
 
-## Contributeurs
 
-- [@AdrienManfredi](https://github.com/AdrienManfredi)
-- [@RestumpY](https://github.com/RestumpY)
-- [@Ziyed1](https://github.com/Ziyed1)
-- [@Youssef-Git](https://github.com/Youssef-Git)
 
-## Trello
-[Accéder au Trello](https://trello.com/b/6P4HJi16/digit-recognizer)
 
-## Powerpoint
-[Télécharger le fichier PowerPoint](https://github.com/Ziyed1/IA_IPSSI/blob/main/Projet-IA-Reconnaissance-de-chiffres.pptx)
+
+
